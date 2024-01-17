@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #dashboard {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #userDetails img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #userDetails p {
+            margin: 0 0 10px;
+            color: #666;
+        }
+
+        #profileForm {
+            margin-top: 15px;
+        }
+
+        #profileImageInput {
+            display: none;
+        }
+
+        #uploadButton {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #uploadButton:hover {
+            background-color: #45a049;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="dashboard">
+        <h1>Personalized Dashboard</h1>
+        <div id="userDetails">
+            <img src="default-profile-image.jpg" alt="Profile Image" id="profileImage">
+            <p><strong>Name:</strong> <span id="userName">John Doe</span></p>
+            <p><strong>Email:</strong> <span id="userEmail">john.doe@example.com</span></p>
+            <p><strong>Phone:</strong> <span id="userPhone">123-456-7890</span></p>
+            <form id="profileForm">
+                <label for="profileImageInput">Add Profile Image:</label>
+                <input type="file" id="profileImageInput" accept="image/*">
+                <button type="button" id="uploadButton" onclick="uploadProfileImage()">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function uploadProfileImage() {
+            const input = document.getElementById('profileImageInput');
+            const image = document.getElementById('profileImage');
+
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                const reader = new FileReader();
+
+                reader.readAsDataURL(file);
+
+                reader.onload = function () {
+                    // Fade out the current image
+                    image.style.opacity = 0;
+
+                    // Set the new image source once the fade-out is complete
+                    setTimeout(() => {
+                        image.src = reader.result;
+                        // Fade in the new image
+                        image.style.opacity = 1;
+                    }, 500);
+                };
+            }
+        }
+    </script>
+</body>
+</html>
